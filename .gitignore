@@ -52,3 +52,9 @@ compile_commands.json
 *creator.user*
 
 *_qmlcache.qrc
+# Ignore build
+build/
+# Ignore protobuf source and tar
+protobuf.tar.gz
+protobuf_source/
+proto/
