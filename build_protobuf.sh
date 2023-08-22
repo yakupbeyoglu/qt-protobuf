@@ -12,9 +12,12 @@ mv protobuf-3.18.0 $PROTOBUF_SOURCE_DIR
 # Build Protocol Buffers
 mkdir -p $PROTOBUF_SOURCE_DIR/build
 cd $PROTOBUF_SOURCE_DIR/build
-cmake ../cmake -Dprotobuf_BUILD_TESTS=OFF
-make
+cmake ../$PROTOBUF_CMAKE_DIR -Dprotobuf_BUILD_TESTS=OFF
+make -j8
+echo "PROTO VERSION :"
+./protoc --version
 
+pwd
 QT_PROJECT_BUILD_DIR=../../build/
 PROTO_LIB=../../proto
 
@@ -24,8 +27,7 @@ if [ ! -d "$PROTO_LIB" ]; then
     mkdir -p "$PROTO_LIB"
 fi
 
-
-protoc message.proto --cpp_out=$PROTO_LIB
+./protoc message.proto --cpp_out=$PROTO_LIB
 ls $QT_PROJECT_BUILD_DIR
 # Create the Qt project build directory if it doesn't exist
 if [ ! -d "$QT_PROJECT_BUILD_DIR" ]; then
