@@ -11,18 +11,32 @@ SOURCES += \
 
 system(./build_protobuf.sh)
 
+unix:!macx: LIBS += -L$$PWD/proto/ -lprotoc
+
+INCLUDEPATH += $$PWD/proto
+DEPENDPATH += $$PWD/proto
+
+# Import shared libraries
+unix:!macx: PRE_TARGETDEPS += $$PWD/proto/libprotoc.a $$PWD/proto/libprotobuf.a
+unix:!macx: LIBS += -L$$PWD/proto/ -lprotobuf
+
+INCLUDEPATH += $$PWD/proto
+DEPENDPATH += $$PWD/proto
+
+
 SOURCES += \
     proto/message.pb.cc
+
+HEADERS +=  \  # Add the generated pb.h file to headers
+    proto/message.pb.h
 
 
 # Define the path to the Protocol Buffers build directory
 PROTOBUF_BUILD_DIR = ./protobuf_source/build
 
-# Add include paths for Protocol Buffers
-INCLUDEPATH += $$PROTOBUF_BUILD_DIR/include
+# Add include paths for Protocol Buffersf
+INCLUDEPATH += $$PROTOBUF_BUILD_DIR/
 
-# Add the Protocol Buffers libraries
-LIBS += -L$$PROTOBUF_BUILD_DIR/lib -lprotobuf -pthread
 
-HEADERS += proto/pb.h \  # Add the generated pb.h file to headers
-    proto/message.pb.h
+
+

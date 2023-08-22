@@ -1,5 +1,4 @@
 #include <QCoreApplication>
-#include <google/protobuf/message.h>
 #include "proto/message.pb.h"
 #include <qdebug.h>
 int main(int argc, char *argv[])
